@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ToneGrid Demo</title>
+    <link rel="stylesheet" href="../src/style.css">
+
+    <style>
+
+    body {
+        font-family: Helvetica, Arial;
+    }
+
+
+    #container {
+        width: 800px;
+        position: relative;
+        margin: 2em auto;
+        overflow: hidden;
+    }
+
+    .right {
+        float: right;
+    }
+
+    .left {
+        float: left;
+    }
+
+    fieldset {
+        border: none;
+        margin: 1em 0;
+        padding: 0;
+    }
+
+
+    .button-group {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+    }
+        .button-group li {
+            float: left;
+        }
+        .button-group input[type=radio] {
+            display: none;
+        }
+        .button-group .label {
+            display: block;
+            padding: .3em .6em;
+            border: 1px solid #999;
+            background-color: #eee;
+            margin-left: -1px;
+            box-shadow: inset 1px 1px 3px #fff;
+            text-shadow: 1px 1px 2px #fff;
+        }
+        .button-group li:first-child .label {
+            margin-left: 0;
+        }
+        .button-group :checked + .label {
+            background-color: #ddd;
+            box-shadow: inset 1px 1px 3px rgba(0, 0, 0, .3);
+        }
+
+
+    .toggle-button {
+        padding: .5em;
+        font-size: 1em;
+    }
+
+        .toggle-button .state-active {
+            display: none;
+        }
+        .toggle-button .state-default {
+            color: #390;
+        }
+        .toggle-button.active .state-default {
+            display: none;
+        }
+        .toggle-button.active .state-active {
+            color: #c00;
+            display: inline;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div id="container">
+        <div class="left">
+            <h1>ToneGrid Demo</h1>
+            <form id="control">
+                <fieldset>
+                    <label for="speed">Speed: </label>
+                    <input type="range" id="speed" name="speed" value="120" min="60" max="180" step="10">
+                    <span id="speed-value">0</span>
+                </fieldset>
+                <fieldset>
+                    <label for="easing">Easing: </label>
+                    <input type="range" id="easing" name="easing" value="8" min="1" max="20" step="1">
+                    <span id="easing-value">0</span>
+                </fieldset>
+                <fieldset>
+                    <ul class="button-group">
+                        <li><label><input type="radio" name="scale" value="1" checked><span class="label">A</span></label></li>
+                        <li><label><input type="radio" name="scale" value="3"><span class="label">B</span></label></li>
+                        <li><label><input type="radio" name="scale" value="4"><span class="label">C</span></label></li>
+                        <li><label><input type="radio" name="scale" value="6"><span class="label">D</span></label></li>
+                        <li><label><input type="radio" name="scale" value="8"><span class="label">E</span></label></li>
+                        <li><label><input type="radio" name="scale" value="9"><span class="label">F</span></label></li>
+                        <li><label><input type="radio" name="scale" value="11"><span class="label">G</span></label></li>
+                    </ul>
+                </fieldset>
+                <fieldset>
+                    <ul class="button-group">
+                        <li><label><input type="radio" name="major" value="true" checked><span class="label">Major</span></label></li>
+                        <li><label><input type="radio" name="major" value="false"><span class="label">minor</span></label></li>
+                    </ul>
+                </fieldset>
+                <fieldset>
+                    <ul class="button-group">
+                        <li><label><input type="radio" name="type" value="sine" checked><span class="label">Sine</span></label></li>
+                        <li><label><input type="radio" name="type" value="square"><span class="label">Square</span></label></li>
+                        <li><label><input type="radio" name="type" value="triangle"><span class="label">Triangle</span></label></li>
+                        <li><label><input type="radio" name="type" value="sawtooth"><span class="label">Sawtooth</span></label></li>
+                    </ul>
+                </fieldset>
+                <fieldset>
+                    <button class="toggle-button" name="button-play">
+                        <span class="state-default">PLAY</span>
+                        <span class="state-active">STOP</span>
+                    </button>
+                </fieldset>
+            </form>
+        </div>
+        <div class="right">
+            <div id="tonegrid"></div>
+        </div>
+    </div>
+
+    <script src="../bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="../src/tonegrid.js"></script>
+    <script>
+
+    (function(global){
+
+        var myToneGrid = global.myToneGrid = new ToneGrid("#tonegrid");
+
+
+        $("#control").on("submit", function(e){
+            e.preventDefault();
+        });
+
+        $("[name=speed]").on("change", function(){
+            var value = parseInt(this.value, 10);
+            $("#speed-value").text(value);
+            myToneGrid.config("speed", value);
+        })
+        .trigger("change");
+
+        $("[name=easing]").on("change", function(){
+            var value = parseInt(this.value, 10);
+            $("#easing-value").text(value);
+            myToneGrid.config("easing", value);
+        })
+        .trigger("change");
+
+        $("[name=scale]").on("change", function(){
+            myToneGrid.config("offset", parseInt(this.value, 10));
+        });
+
+        $("[name=major]").on("change", function(){
+            var value = (/^true/i).test(this.value);
+            myToneGrid.config("major", value);
+        });
+
+        $("[name=type]").on("change", function(){
+            myToneGrid.config("type", this.value);
+        });
+
+        $("[name=button-play]").on("click", function(){
+            var node = $(this);
+            node.toggleClass("active");
+            myToneGrid[node.hasClass("active") ? "play" : "stop"]();
+        });
+
+    }(this));
+
+    </script>
+
+</body>
+</html>

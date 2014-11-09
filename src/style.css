@@ -1,0 +1,40 @@
+.tonegrid {
+  width: 400px;
+  overflow: hidden;
+}
+.tonegrid label {
+  display: block;
+}
+.tonegrid .tonegrid-label {
+  display: block;
+  width: 20px;
+  height: 20px;
+  background-color: #eee;
+  vertical-align: top;
+  box-sizing: border-box;
+  border: 0px solid #fff;
+  border-radius: 10px;
+  transition: all .1s ease 0s;
+}
+.tonegrid .tonegrid-label:hover {
+  border: 2px solid #999;
+}
+.tonegrid input[type=checkbox] {
+  display: none;
+}
+.tonegrid input[type=checkbox]:checked + .tonegrid-label {
+  background-color: #390;
+}
+.tonegrid .tonegrid-frame {
+  width: 20px;
+  height: 400px;
+  float: left;
+  line-height: 20px;
+}
+.tonegrid .tonegrid-frame.active .tonegrid-label {
+  background-color: #f9f9f9;
+}
+.tonegrid .tonegrid-frame.active :checked + .tonegrid-label {
+  background-color: #bbff99;
+  transform: scale(1.3);
+}
