@@ -9,15 +9,15 @@
   display: block;
   width: 20px;
   height: 20px;
-  background-color: #eee;
+  background-color: #333;
   vertical-align: top;
   box-sizing: border-box;
-  border: 0px solid #fff;
+  border: 1px solid #222;
   border-radius: 10px;
   transition: all .1s ease 0s;
 }
 .tonegrid .tonegrid-label:hover {
-  border: 2px solid #999;
+  border: 2px solid #444;
 }
 .tonegrid input[type=checkbox] {
   display: none;
@@ -32,7 +32,7 @@
   line-height: 20px;
 }
 .tonegrid .tonegrid-frame.active .tonegrid-label {
-  background-color: #f9f9f9;
+  background-color: #666;
 }
 .tonegrid .tonegrid-frame.active :checked + .tonegrid-label {
   background-color: #bbff99;
