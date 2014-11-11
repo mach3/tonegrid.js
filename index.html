@@ -8,7 +8,7 @@
     <style>
 
     body {
-        font-family: Helvetica, Arial;
+        font-family: 'Helvetica Neue Light', Arial;
         background-color: #111;
         color: #ddd;
     }
@@ -50,21 +50,22 @@
         .button-group .label {
             display: block;
             padding: .3em .6em;
-            border: 1px solid #666;
+            border: 1px solid #ccc;
             background-color: #222;
             margin-left: -1px;
         }
         .button-group .label:hover {
-            background-color: #333;
+            background-color: #444;
         }
         .button-group li:first-child .label {
             margin-left: 0;
         }
         .button-group :checked + .label {
             background-color: #ddd;
+            color: #222;
             box-shadow: inset 1px 1px 3px rgba(0, 0, 0, .3);
-            color: #111;
         }
+
 
     .toggle-button {
         padding: .5em;
@@ -91,6 +92,7 @@
 
     <div id="container">
         <div class="left">
+            <h1>ToneGrid Demo</h1>
             <form id="control">
                 <fieldset>
                     <label for="speed">Speed: </label>
@@ -141,7 +143,7 @@
     </div>
 
     <script src="./bower_components/jquery/dist/jquery.min.js"></script>
-    <script src="./dist/tonegrid.min.js"></script>
+    <script src="./dist/tonegrid.js"></script>
     <script>
 
     (function(global){
