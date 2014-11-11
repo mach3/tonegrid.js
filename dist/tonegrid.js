@@ -3,7 +3,7 @@
  * -----------
  * Matrix sequencer by Web Audio API
  *
- * @version 0.1.0 (2014-11-09)
+ * @version 0.1.0 (2014-11-11)
  * @author mach3 <http://github.com/mach3>
  * @license MIT
  * @url https://github.com/mach3/tonegrid.js
@@ -13,7 +13,7 @@
     // Compatibility
     global.AudioContext = global.AudioContext || global.webkitAudioContext || null;
     if(! global.AudioContext){
-        return global.MatrixTones = null;
+        return global.ToneGrid = null;
     }
 
     /**
@@ -193,7 +193,9 @@
          */
         api.play = function(){
             this.playing = true;
-            this.process();
+            // this.process();
+            clearInterval(this.timer);
+            this.timer = setInterval(this.process, parseInt(60000 / this.config("speed") / 4, 10));
         };
 
         /**
@@ -201,6 +203,7 @@
          */
         api.stop = function(){
             this.playing = false;
+            clearInterval(this.timer);
         };
 
         /**
@@ -212,10 +215,7 @@
             o = this.options;
             my = this;
 
-            clearTimeout(this.timer);
-
             if(this.playing){
-                this.timer = setTimeout(this.process, parseInt(60000 / o.speed / 4, 10));
                 index = this.index = (this.index + 1) % 20;
                 this.frames.removeClass("active").eq(index).addClass("active");
                 this.data[index].forEach(function(value){
@@ -231,7 +231,10 @@
          */
         api.onChange = function(e, o){
             if(["offset", "major", "easing", "type"].indexOf(o.key) >= 0){
-                this.initTones();
+                return this.initTones();
+            }
+            if(o.key === "speed"){
+                this.play();
             }
         };
 
