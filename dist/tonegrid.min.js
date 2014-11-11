@@ -3,7 +3,7 @@
  * -----------
  * Matrix sequencer by Web Audio API
  *
- * @version 0.1.0 (2014-11-11)
+ * @version 0.1.1 (2014-11-11)
  * @author mach3 <http://github.com/mach3>
  * @license MIT
  * @url https://github.com/mach3/tonegrid.js

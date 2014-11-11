@@ -1,6 +1,6 @@
 {
   "name": "tonegrid.js",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Matrix sequencer by Web Audio API",
   "main": "Gruntfile.js",
   "dependencies": {},
